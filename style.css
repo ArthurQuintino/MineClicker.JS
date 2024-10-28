@@ -36,6 +36,11 @@ body{
 .container__cookie img{
     width: 60%;
     cursor: pointer;    
+    transition: transform 0.2s;
+}
+
+.container__cookie img:active{
+    transform: scale(0.9);
 }
 
 .container__status{
@@ -89,13 +94,15 @@ body{
     overflow-y: auto; 
 }
 
-.container__scroll__loja button{
+
+.button_loja{
+    background-color: rgb(0, 70, 56);
     flex-shrink: 0;
     height: 50px;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    text-align: center;
-    
+    color: white;
+    border-radius: 30px;
 }
