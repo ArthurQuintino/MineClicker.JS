@@ -95,7 +95,7 @@ body{
 }
 
 
-.button_loja{
+button{
     background-color: rgb(0, 70, 56);
     flex-shrink: 0;
     height: 50px;
@@ -106,3 +106,20 @@ body{
     color: white;
     border-radius: 30px;
 }
+
+
+
+
+@media screen and (min-width: 0px) and (max-width: 600px)  {
+    .container__geral {
+        display: block;
+    }
+    .container__cookie{
+        width: 100%;
+    }
+    .container__status{
+        width: 100%;
+    }
+
+}
+
