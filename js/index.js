@@ -13,6 +13,7 @@ imageclick.addEventListener("click", clicarimagem)
 
 
 
+// criando array de itens com seus atributos
 let itens = [
     { nome: 'Picareta de Madeira', preco: 1000, ganhos: 5, imagem: 'caminho da imagem', comprado: false },
     { nome: 'Picareta de Cobre', preco: 2000, ganhos: 10, imagem: 'caminho da imagem', comprado: false },
@@ -25,6 +26,7 @@ let itens = [
     { nome: 'Picareta de Obsidiana', preco: 256000, ganhos: 1280, imagem: 'caminho da imagem', comprado: false },
 ];
 
+// criando array das poções com seus atributos
 let pocoes = [
     { nome: 'Poção de Mineração I', preco: 500, multiplicador: 1.5, duracao: 3000, imagem: 'caminho da imagem', comprado: false },
     { nome: 'Poção de Mineração II', preco: 1000, multiplicador: 3.0, duracao: 5000, imagem: 'caminho da imagem', comprado: false },
@@ -34,8 +36,43 @@ let pocoes = [
     { nome: 'Poção do Creeper', preco: 16000, multiplicador: 50.0, duracao: 15000, imagem: 'caminho da imagem', comprado: false }
 ];
 
+
+
+// Funções para desabilitar os botoes das abas ao clicar na outra function
+
+function DesfazerBotoesPicaretas() {
+
+    let buttonspicaretas = document.querySelectorAll('.button-picaretas')
+    let buttonspocoes = document.querySelectorAll('.button-potions')
+    buttonspicaretas.forEach(button => {
+        button.style.display = 'none';
+    });
+
+    buttonspocoes.forEach(button => {
+        button.style.display = 'block';
+    });
+
+}
+function DesfazerBotoesPocoes() {
+
+    let buttonspicaretas = document.querySelectorAll('.button-picaretas')
+    let buttonspocoes = document.querySelectorAll('.button-potions')
+    buttonspicaretas.forEach(button => {
+        button.style.display = 'block';
+    });
+
+    buttonspocoes.forEach(button => {
+        button.style.display = 'none';
+    });
+
+
+}
+
+
+// função para criar os botoes da picareta
+
 function criarBotoes() {
-    if (botoesPicaretasCriados) return; 
+    if (botoesPicaretasCriados) return;
     for (let i = 0; i < itens.length; i++) {
         let LocalButton = document.querySelector('.container__scroll__loja')
         let newbuttons = document.createElement("button")
@@ -66,38 +103,10 @@ function criarBotoes() {
 
 }
 
-function DesfazerBotoesPicaretas() {
-
-    let buttonspicaretas = document.querySelectorAll('.button-picaretas')
-    let buttonspocoes = document.querySelectorAll('.button-potions')
-    buttonspicaretas.forEach(button => {
-        button.style.display = 'none';
-    });
-    
-    buttonspocoes.forEach(button => {
-        button.style.display = 'block';
-    });
-
-}
-function DesfazerBotoesPocoes() {
-
-    let buttonspicaretas = document.querySelectorAll('.button-picaretas')
-    let buttonspocoes = document.querySelectorAll('.button-potions')
-    buttonspicaretas.forEach(button => {
-        button.style.display = 'block';
-    });
-    
-    buttonspocoes.forEach(button => {
-        button.style.display = 'none';
-    });
-
-
-}
-
-
+// função para criar os buttons das Poções
 
 function criarBotoesPocao() {
-    if (botoesPocoesCriados) return; 
+    if (botoesPocoesCriados) return;
     for (let i = 0; i < pocoes.length; i++) {
         let LocalButton = document.querySelector('.container__scroll__loja')
         let newpotionsbuttons = document.createElement("button")
@@ -131,12 +140,7 @@ function criarBotoesPocao() {
 
 }
 
-
-
-
-
-
-
+// Função para Trocar as paginas utilizando as outras 2 functions para simplificar a logica
 
 function Trocarpaginas() {
     let button1 = document.querySelector(".buttonTrocarPag1");
@@ -150,7 +154,7 @@ function Trocarpaginas() {
 
         }
     });
-    
+
     button2.addEventListener("click", function (e) {
         DesfazerBotoesPocoes();
         if (!botoesPicaretasCriados) {
@@ -158,43 +162,125 @@ function Trocarpaginas() {
             criarBotoes()
 
         }
-        
+
     });
 
 }
 
-Trocarpaginas()
-
-
+// Função para Incrementar os botoes ao clicar na imagem
 
 function clicarimagem() {
     saldo += ganhos
     contador.innerText = parseInt(saldo)
     console.log(saldo)
 
-
     switch (true) {
-        case saldo >= 1000:
-            imageclick.src = "img/ferro.png"
+
+        case saldo < 2000:
+            imageclick.src = "img/carvao.png"
+            Animacao(0)
             break;
         case saldo >= 2000:
+            imageclick.src = "img/ferro.png"
+            Animacao(1)
+            break;
+        case saldo >= 4000:
             imageclick.src = "img/ouro.png"
+            Animacao(2)
             break;
-        case saldo >= 3000:
+        case saldo >= 8000:
             imageclick.src = "img/esmeralda.png"
+            Animacao(3)
             break;
-        case saldo >= 5000:
+        case saldo >= 16000:
             imageclick.src = "img/lapisazuli.png"
+            Animacao(4)
             break;
-        case saldo >= 6500:
+        case saldo >= 32000:
             imageclick.src = "img/diamante.png"
+            Animacao(5)
             break;
-        case saldo >= 7000:
+        case saldo >= 64000:
             imageclick.src = "img/bedrock.png"
+            Animacao(6)
             break;
     }
+
+
+
 
 }
 
 
+// função para retornar um valor aleatorio de acordo com o numero fornecido
+function Random(num) {
+    return Math.floor(Math.random() * num)
+}
+
+// Função para executar o efeito de neve
+
+
+function Animacao(numimage) {
+
+    const Img = document.createElement('img')
+    const LocalImg = document.querySelector('.container__png__falling');
+    Img.className = 'img_falling'
+
+    switch (true) {
+        case numimage == 0:
+            Img.src = 'img/carvao.png'
+            break
+        case numimage == 1:
+            Img.src = 'img/ferro.png'
+            break
+        case numimage == 2:
+            Img.src = 'img/ouro.png'
+            break
+        case numimage == 3:
+            Img.src = 'img/esmeralda.png'
+            break
+        case numimage == 4:
+            Img.src = 'img/lapisazuli.png'
+            break
+        case numimage == 5:
+            Img.src = 'img/diamante.png'
+            break
+        case numimage == 6:
+            Img.src = 'img/bedrock.png'
+            break
+
+    }
+    Img.style.top = `${Random(100)}px`
+    Img.style.left = `${Random(300)}px`
+
+
+    // Codigo para nao se repitir as animações automaticamente.
+    Img.addEventListener('animationend', () => {
+        Img.remove();
+    });
+
+
+    LocalImg.appendChild(Img)
+
+
+}
+
+
+
+
+
+
+// execução das funções para trocar de paginas e as de criar botoes
+Trocarpaginas()
 criarBotoes()
+
+
+
+
+
+
+
+
+
+
+
